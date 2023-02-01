@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,7 +17,9 @@ public class Outline {
   public static void question1() {
     List<String> words = getList();
     System.out.println("1: ");
-    // YOUR CODE
+    words.stream()
+            .map(s-> "  " + s)
+            .forEach(System.out::println);
   }
 
   // Repeat this problem but without two spaces in front of each word.
@@ -25,7 +28,8 @@ public class Outline {
   public static void question2() {
     List<String> words = getList();
     System.out.println("2: ");
-    // YOUR CODE
+     words.stream()
+             .forEach(System.out::println);
   }
 
   // For each of the following lambda expressions (see Question 5 in Worksheet 2),
@@ -38,9 +42,27 @@ public class Outline {
 
   public static void question3() {
     List<String> words = getList();
-    System.out.println("3:");
-    // YOUR CODE
+    System.out.println("3a:");
+    List<String> shortWords =
+            words.stream()
+                    .filter(s->s.length() < 5)
+                    .collect(Collectors.toList());
+    System.out.println(shortWords);
+    System.out.println("\n3b:");
+    List<String> bWords =
+            words.stream()
+                    .filter(s->s.contains("b"))
+                    .collect(Collectors.toList());
+    System.out.println(bWords);
+
+    System.out.println("\n3c:");
+    List<String> evenWords =
+            words.stream()
+                    .filter(s->s.length()%2 == 0)
+                    .collect(Collectors.toList());
+    System.out.println(evenWords);
   }
+
 
 
   // For each of the following lambda expressions (see Question 7 in Worksheet 2),
@@ -78,7 +100,7 @@ public class Outline {
   public static void question6() {
     List<String> words = getList();
     System.out.println("6:");
-    // YOUR CODE
+     //.peek(s-> System.out::println)
   }
 
   // (*) Produce a single String that is the result of concatenating the
@@ -90,7 +112,11 @@ public class Outline {
   public static void question7() {
     List<String> words = getList();
     System.out.println("7:");
-    // YOUR CODE
+    String listConcatenated =
+            words.stream()
+                    .map(String::toUpperCase)
+                    .reduce("", (a,b)-> a+b); //nb a = identity arg to start with
+    System.out.println(listConcatenated);
   }
 
 
@@ -102,8 +128,13 @@ public class Outline {
   public static void question8() {
     List<String> words = getList();
     System.out.println("8:");
-    // YOUR CODE
+    String listConcatenated =
+    words.stream()
+            .reduce("", (a,b) -> a + b.toUpperCase());
+
+    System.out.println(listConcatenated);
   }
+
 
   // (*) Produce a String that is all the words concatenated together, but
   // with commas in between. For example, the result should be "hi,hello,...".
@@ -113,13 +144,24 @@ public class Outline {
   public static void question9() {
     List<String> words = getList();
     System.out.println("9:");
-    // YOUR CODE
+    String commaList =
+            words.stream()
+                    .limit(words.size()-1)
+                    .map(s-> s + ",")
+                    .reduce("", (a,b)-> a + b)
+                    .concat(words.get(words.size()-1));//this feels like cheating
+    System.out.println(commaList);
   }
 
   // CONTINUE WITH THE REST OF THE QUESTIONS
 
   public static void main(String... args) { // varargs alternative to String[]
-    question1();
+    //question1();
+    //question2();
+    //question3();
+    //question7();
+    //question8();
+    question9();
 
   }
 }
