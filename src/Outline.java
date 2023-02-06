@@ -1,7 +1,9 @@
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 
@@ -12,6 +14,9 @@ public class Outline {
             "beaver", "winterland", "elephant", "eye", "qi");
   }
 
+  public static Integer[] getIntegerArray() {
+    return new Integer[] { 1, 7, 3, 4, 8, 2 };
+  }
   // Loop through the words and print each one on a separate line,
   // with two spaces in front of each word.
   public static void question1() {
@@ -153,15 +158,62 @@ public class Outline {
     System.out.println(commaList);
   }
 
-  // CONTINUE WITH THE REST OF THE QUESTIONS
+  public static void question10() {
+    List<Dish> ld1 = Dish.getMenu().stream()
+            .filter(d -> Dish.Type.MEAT.equals(d.type()))
+            .limit(2)
+            .toList();
+    System.out.println(ld1);
+  }
 
+  public static void question11(){
+    int a = Dish.getMenu().stream()
+            .map(d -> 1)
+            .reduce(0, Integer::sum);
+    System.out.print(a);
+  }
+
+  public static void question12(){
+    Arrays.stream(getIntegerArray())
+            .map(n -> n*n)
+            .forEach(System.out::println);
+  }
+
+  public static void question13(){
+    List<Integer> l1 = Arrays.asList(1,2,3);
+    List<Integer> l2 = Arrays.asList(3,4);
+
+    List<List<Integer>> l3 = l1.stream()
+            .flatMap(n1 -> l2.stream()
+                    .map(n2 -> Arrays.asList(n1, n2)))
+            .collect(Collectors.toList());
+    System.out.println(l3);
+
+  }
+
+  public static void question14(){
+    List<Integer> l1 = Arrays.asList(1,2,3);
+    List<Integer> l2 = Arrays.asList(3,4);
+
+    List<List<Integer>> l3 = l1.stream()
+            .flatMap(n1 -> l2.stream()
+                    .filter(n2 -> (n1+n2)%3 == 0 )
+                    .map(n2 -> Arrays.asList(n1 , n2)))
+            .collect(Collectors.toList());
+    System.out.println(l3);
+  }
   public static void main(String... args) { // varargs alternative to String[]
     //question1();
     //question2();
     //question3();
     //question7();
     //question8();
-    question9();
+    //question9();
+    //question10();
+    //question11();
+    //question12();
+    //question13();
+    //question14();
 
   }
 }
